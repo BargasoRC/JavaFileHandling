@@ -21,11 +21,11 @@ import java.util.HashMap;
  * @author bargasore_sd2023
  */
 public class CreateFile {
-    ArrayList< HashMap<String, File>> account_List1 = new ArrayList();
+    ArrayList<File> account_List = new ArrayList();
     int id = 0;
-    int file_ID = 0;
+    
     public ArrayList getAccountList(){
-        return account_List1;
+        return account_List;
     }
 
     public void createAccount(String username, String password) {
@@ -108,6 +108,10 @@ public class CreateFile {
     
     
     public void readFiles(){
+        /**
+         * store the information from the accounts.txt to the account_List which
+         * is the arrayList above
+         */
         String filePath = "C:\\Users\\bargasore_sd2023\\Documents\\NetBeansProjects\\Registration\\accounts.txt";
         String line = null;
         BufferedReader reader = null;
@@ -117,17 +121,12 @@ public class CreateFile {
             freader = new FileReader(filePath);
             reader = new BufferedReader(freader);
             while ((line = reader.readLine()) != null) {
-                // ArrayList< HashMap<String, File>> account_List1 = new ArrayList();
-                String[] detail = line.split("\t");
-                HashMap<String,File> a = new HashMap();
-                Account b = new Account();
-                File f = new File();
-                b.setUsername(detail[1]);
-                b.setPassword(detail[2]);
-                b.setAccount_ID(id);
-                f.setAccount(b);
-                a.put(String.valueOf(++file_ID),f);
-                account_List1.add(a);
+                String[] lines = line.split("\t");
+                File files = new File();
+                files.account.account_ID = Integer.parseInt(lines[0]);
+                files.account.username = lines[1];
+                files.account.password = lines[2];
+                account_List.add(files);
             }
         } catch (FileNotFoundException fnf) {
             System.out.println(fnf);
@@ -142,6 +141,13 @@ public class CreateFile {
                 System.out.println(np);
             }
         }
+        /* end block of accounts.txt reading */
+        
+        
+        /**
+         * store the information from the personalInformation.txt to the account_List which
+         * is the arrayList above
+         */
         
         String InformationfilePath = "C:\\Users\\bargasore_sd2023\\Documents\\NetBeansProjects\\Registration\\personalInformation.txt";
 
@@ -149,12 +155,12 @@ public class CreateFile {
             freader = new FileReader(InformationfilePath);
             reader = new BufferedReader(freader);
             while ((line = reader.readLine()) != null) {
-                for(int i = 0; i < account_List1.size(); ++i){
-                    String[] detail = line.split("\t");
-                    if(account_List1.get(i).get(i).getAccount().getAccount_ID()==Integer.parseInt(detail[1])){
-                        
-                    }
-                }
+                String[] lines = line.split("\t");
+                File files = new File();
+                files.information.id = Integer.parseInt(lines[0]);
+                files.information.firstName = lines[1];
+                files.information.middleName = lines[2];
+                files.information.lastName = lines[3];
             }
         } catch (FileNotFoundException fnf) {
             System.out.println(fnf);
@@ -169,6 +175,10 @@ public class CreateFile {
                 System.out.println(np);
             }
         }
+        /* end block of personalInformation.txt reading */
+        
+        
+        
     }
     
     private static class myException extends Exception {
