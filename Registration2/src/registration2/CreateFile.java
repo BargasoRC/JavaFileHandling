@@ -236,17 +236,26 @@ public class CreateFile {
     public void createPersonalInformation(ArrayList list) {
         info.add(list);
     }
-    
-    public void createAccount(ArrayList list){
+
+    public void createAccount(ArrayList list) {
         accounts.add(list);
     }
-    
-    public void createCourse(ArrayList list){
+
+    public void createCourse(ArrayList list) {
         schedule.add(list);
     }
-    
-    public void save(){
-        
+
+    public void save() {
+        //remove the standardOpenOption.APPEND to write the details from the arrayList
+        Path path = Paths.get("C:\\Users\\bargasore_sd2023\\Documents\\NetBeansProjects\\Registration\\accounts.txt");
+        try {
+            for (ArrayList<Account> a : accounts) {
+                Files.write(path, String.format("%d\t%s\t%s\n", a.get(0).account_ID, a.get(0).username, a.get(0).password).getBytes());
+            }
+            System.out.println("Details has been added!");
+        } catch (IOException ioe) {
+            System.out.println(ioe);
+        }
     }
 
     private static class myException extends Exception {
