@@ -10,32 +10,35 @@ package registration2;
  * @author bargasore_sd2023
  */
 public class File {
-    Account account;
-    PersonalInformation information;
+    
     int unit = 0;
     String subject = null;
     String time = null;
     String days = null;
+    int file_ID = 0;
+    int fk = 0;
     
-    public File(){
-        account = new Account();
+    public int getFile_ID() {
+        return file_ID;
     }
 
-    public Account getAccount() {
-        return account;
+    public int getFk() {
+        return fk;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public boolean setFk(String fk) {
+//        this.fk = fk;
+        this.fk = (intCheck(fk)?Integer.parseInt(fk):0);
+        return intCheck(fk);
     }
+    
+    
 
-    public PersonalInformation getInformation() {
-        return information;
+    public boolean setFile_ID(String file_ID) {
+        this.file_ID = (intCheck(file_ID)?Integer.parseInt(file_ID):0);
+        return intCheck(file_ID);
     }
-
-    public void setInformation(PersonalInformation information) {
-        this.information = information;
-    }
+    
 
     public int getUnit() {
         return unit;

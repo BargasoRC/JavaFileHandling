@@ -14,6 +14,27 @@ public class PersonalInformation {
     String lastName = null;
     String middleName = null;
     int id = 0;
+    int age = 0;
+    int fk = 0;
+
+    public int getFk() {
+        return fk;
+    }
+
+    public boolean setFk(String fk) {
+        this.fk = (intCheck(fk)?Integer.parseInt(fk):0);
+        return intCheck(fk);
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public boolean setAge(String age) {
+//        this.age = age;
+        this.age = (intCheck(age)?Integer.parseInt(age):0);
+        return intCheck(age);
+    }
 
     public String getFirstName() {
         return firstName;
