@@ -249,8 +249,9 @@ public class CreateFile {
         //remove the standardOpenOption.APPEND to write the details from the arrayList
         Path path = Paths.get("C:\\Users\\bargasore_sd2023\\Documents\\NetBeansProjects\\Registration\\accounts.txt");
         try {
+            Files.write(path, String.format("%s\t%s\t%s\n", "ID", "USERNAME", "PASSWORD").getBytes());
             for (ArrayList<Account> a : accounts) {
-                Files.write(path, String.format("%d\t%s\t%s\n", a.get(0).account_ID, a.get(0).username, a.get(0).password).getBytes());
+                Files.write(path, String.format("%d\t%s\t%s\n", a.get(0).account_ID, a.get(0).username, a.get(0).password).getBytes(), StandardOpenOption.APPEND);
             }
             System.out.println("Details has been added!");
         } catch (IOException ioe) {
