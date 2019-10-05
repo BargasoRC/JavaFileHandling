@@ -106,6 +106,6 @@ public class PersonalInformation {
     @Override
     public String toString(){
         return String.format("id : %d\nfirst name : %s\nmiddle name : %s"
-                + "\nlastname : %s",id,firstName,middleName,lastName);
+                + "\nlastname : %s\nage: %d",id,firstName,middleName,lastName,age);
     }
 }

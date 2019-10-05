@@ -22,16 +22,12 @@ import java.util.HashMap;
  */
 public class CreateFile {
 
-    ArrayList<File> account_List = new ArrayList();
+//    ArrayList<File> account_List = new ArrayList();
     ArrayList<ArrayList<Account>> accounts = new ArrayList();
     ArrayList<ArrayList<PersonalInformation>> info = new ArrayList();
     ArrayList<ArrayList<File>> schedule = new ArrayList();
 
     int id = 0;
-
-    public ArrayList getAccountList() {
-        return account_List;
-    }
 
     public ArrayList getAccount() {
         return accounts;
@@ -126,7 +122,13 @@ public class CreateFile {
          * store the information from the accounts.txt to the account_List which
          * is the arrayList above
          */
-        String filePath = "C:\\Users\\bargasore_sd2023\\Documents\\NetBeansProjects\\Registration\\accounts.txt";
+        
+        accounts = new <ArrayList<Account>>ArrayList();
+        info = new <ArrayList<PersonalInformation>>ArrayList();
+        schedule = new <ArrayList<File>>ArrayList();
+        
+       
+        String filePath = "C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\accounts.txt";
         String line = null;
         BufferedReader reader = null;
         FileReader freader = null;
@@ -163,7 +165,7 @@ public class CreateFile {
          * store the information from the personalInformation.txt to the
          * account_List which is the arrayList above
          */
-        String InformationfilePath = "C:\\Users\\bargasore_sd2023\\Documents\\NetBeansProjects\\Registration\\personalInformation.txt";
+        String InformationfilePath = "C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\personalInformation.txt";
 
         try {
             freader = new FileReader(InformationfilePath);
@@ -200,7 +202,7 @@ public class CreateFile {
         }
         /* end block of personalInformation.txt reading */
 
-        String schedPath = "C:\\Users\\bargasore_sd2023\\Documents\\NetBeansProjects\\Registration\\courses.txt";
+        String schedPath = "C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\courses.txt";
         try {
             freader = new FileReader(filePath);
             reader = new BufferedReader(freader);
@@ -212,8 +214,9 @@ public class CreateFile {
                 sched.file_ID = Integer.parseInt(lines[0]);
                 sched.fk = Integer.parseInt(lines[1]);
                 sched.unit = Integer.parseInt(lines[2]);
-                sched.time = lines[3];
-                sched.days = lines[4];
+                sched.subject = lines[3];
+                sched.time = lines[4];
+                sched.days = lines[5];
                 list.add(sched);
                 schedule.add(list);
 
@@ -247,18 +250,113 @@ public class CreateFile {
 
     public void save() {
         //remove the standardOpenOption.APPEND to write the details from the arrayList
-        Path path = Paths.get("C:\\Users\\bargasore_sd2023\\Documents\\NetBeansProjects\\Registration\\accounts.txt");
+        Path path = Paths.get("C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\accounts.txt");
         try {
             Files.write(path, String.format("%s\t%s\t%s\n", "ID", "USERNAME", "PASSWORD").getBytes());
             for (ArrayList<Account> a : accounts) {
-                Files.write(path, String.format("%d\t%s\t%s\n", a.get(0).account_ID, a.get(0).username, a.get(0).password).getBytes(), StandardOpenOption.APPEND);
+                Files.write(path, String.format("%d\t%s\t%s\n", a.get(0).account_ID, a.get(1).username, a.get(2).password).getBytes(), StandardOpenOption.APPEND);
+            }
+            System.out.println("Details has been added!");
+        } catch (IOException ioe) {
+            System.out.println(ioe);
+        }
+        
+        Path infoPath = Paths.get("C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\personalInformation.txt");
+        try {
+            Files.write(path, String.format("%d\t%d\t%s\t%s\t%s\t%s\t%d\n", "ID", "FK", "FIRST NAME", "MIDDLE NAME","LASTNAME","AGE").getBytes());
+            for (ArrayList<PersonalInformation> a : info) {
+                Files.write(path, String.format("%d\t%d\t%s\t%s\t%s\t%s\t%d\n", a.get(0).id, a.get(1).fk, a.get(2).firstName,a.get(3).middleName,a.get(4).lastName,a.get(5).age).getBytes(), StandardOpenOption.APPEND);
+            }
+            System.out.println("Details has been added!");
+        } catch (IOException ioe) {
+            System.out.println(ioe);
+        }
+        
+        Path coursePath = Paths.get("C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\courses.txt");
+        try {
+            Files.write(path, String.format("%d\t%d\t%d\t%s\t%s\n", "ID", "FK", "UNIT","SUBJECT","TIME","DAY/S").getBytes());
+            for (ArrayList<File> a : schedule) {
+                Files.write(path, String.format("%d\t%d\t%d\t%s\t%s\n", a.get(0).file_ID, a.get(1).fk, a.get(2).unit,a.get(3).subject, a.get(4).time, a.get(5).days).getBytes(), StandardOpenOption.APPEND);
             }
             System.out.println("Details has been added!");
         } catch (IOException ioe) {
             System.out.println(ioe);
         }
     }
+    
+    public void updatePersonalInformation(int id, String firstName, String middleName, String lastName, int age){
+        for(ArrayList<PersonalInformation> a : info){
+            if(a.get(1).fk == id){
+                info.get(info.indexOf(a)).get(2).firstName = firstName;
+                info.get(info.indexOf(a)).get(3).middleName = middleName;
+                info.get(info.indexOf(a)).get(4).lastName = lastName;
+                info.get(info.indexOf(a)).get(5).age = age;
+            }
+        }
+        System.out.println("Updated Successfully!");
+    }
+    
+    public void updateCourse(int id, int unit, String subject, String time, String days){
+        for(ArrayList<File> a : schedule){
+            if(a.get(1).fk == id){
+                schedule.get(schedule.indexOf(a)).get(2).unit = unit;
+                schedule.get(schedule.indexOf(a)).get(3).subject = subject;
+                schedule.get(schedule.indexOf(a)).get(4).time = time;
+                schedule.get(schedule.indexOf(a)).get(5).days = days;
+            }
+        }
+        System.out.println("Updated Successfully!");
+    }
+    
+    public void deletePersonalInformation(int id){
+        for(ArrayList<PersonalInformation> a : info){
+            if(a.get(1).fk == id){
+                info.remove(a);
+            }
+        }
+        
+        System.out.println("Deleted Successfully!");
+    }
 
+    public void deleteCourse(int id){
+        for(ArrayList<File> a : schedule){
+            if(a.get(1).fk == id){
+                schedule.remove(a);
+            }
+        }
+    }
+    
+    public int idGenerator(String file){
+        /**
+         * this will generator Id for every transactions
+        */
+        String filePath = "C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\"+file;
+        String line = null;
+        BufferedReader reader = null;
+        FileReader freader = null;
+        int id = 0;
+        try {
+            freader = new FileReader(filePath);
+            reader = new BufferedReader(freader);
+            while ((line = reader.readLine()) != null) {
+                ++id;
+            }
+        } catch (FileNotFoundException fnf) {
+            System.out.println(fnf);
+        } catch (IOException io) {
+            System.out.println(io);
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException io) {
+                System.out.println(io);
+            } catch (NullPointerException np) {
+                System.out.println(np);
+            }
+        }
+        
+        return id;
+    }
     private static class myException extends Exception {
 
         public myException(String invalid_user_name) {
