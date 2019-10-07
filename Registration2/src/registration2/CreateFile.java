@@ -23,12 +23,11 @@ import java.util.HashMap;
 public class CreateFile {
 
 //    ArrayList<File> account_List = new ArrayList();
-    ArrayList<ArrayList<Account>> accounts = new ArrayList();
-    ArrayList<ArrayList<PersonalInformation>> info = new ArrayList();
-    ArrayList<ArrayList<File>> schedule = new ArrayList();
+    public ArrayList<ArrayList<Account>> accounts = new ArrayList();
+    public ArrayList<ArrayList<PersonalInformation>> info = new ArrayList();
+    public ArrayList<ArrayList<File>> schedule = new ArrayList();
 
-    int id = 0;
-
+//    int id = 0;
     public ArrayList getAccount() {
         return accounts;
     }
@@ -120,14 +119,13 @@ public class CreateFile {
     public void readFiles() {
         /**
          * store the information from the accounts.txt to the account_List which
-         * is the arrayList above
+         * is the arrayList 
          */
-        
+
         accounts = new <ArrayList<Account>>ArrayList();
         info = new <ArrayList<PersonalInformation>>ArrayList();
         schedule = new <ArrayList<File>>ArrayList();
-        
-       
+
         String filePath = "C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\accounts.txt";
         String line = null;
         BufferedReader reader = null;
@@ -204,7 +202,7 @@ public class CreateFile {
 
         String schedPath = "C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\courses.txt";
         try {
-            freader = new FileReader(filePath);
+            freader = new FileReader(schedPath);
             reader = new BufferedReader(freader);
             while ((line = reader.readLine()) != null) {
                 String[] lines = line.split("\t");
@@ -252,41 +250,38 @@ public class CreateFile {
         //remove the standardOpenOption.APPEND to write the details from the arrayList
         Path path = Paths.get("C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\accounts.txt");
         try {
-            Files.write(path, String.format("%s\t%s\t%s\n", "ID", "USERNAME", "PASSWORD").getBytes());
             for (ArrayList<Account> a : accounts) {
-                Files.write(path, String.format("%d\t%s\t%s\n", a.get(0).account_ID, a.get(1).username, a.get(2).password).getBytes(), StandardOpenOption.APPEND);
+                Files.write(path, String.format("%d\t%s\t%s\n", a.get(0).getAccount_ID(), a.get(0).getUsername(), a.get(0).getPassword()).getBytes(), StandardOpenOption.APPEND);
             }
             System.out.println("Details has been added!");
         } catch (IOException ioe) {
             System.out.println(ioe);
         }
-        
+
         Path infoPath = Paths.get("C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\personalInformation.txt");
         try {
-            Files.write(path, String.format("%d\t%d\t%s\t%s\t%s\t%s\t%d\n", "ID", "FK", "FIRST NAME", "MIDDLE NAME","LASTNAME","AGE").getBytes());
             for (ArrayList<PersonalInformation> a : info) {
-                Files.write(path, String.format("%d\t%d\t%s\t%s\t%s\t%s\t%d\n", a.get(0).id, a.get(1).fk, a.get(2).firstName,a.get(3).middleName,a.get(4).lastName,a.get(5).age).getBytes(), StandardOpenOption.APPEND);
+                Files.write(infoPath, String.format("%d\t%d\t%s\t%s\t%s\t%d\n", a.get(0).getId(), a.get(0).getFk(), a.get(0).getFirstName(), a.get(0).getMiddleName(), a.get(0).getLastName(), a.get(0).age).getBytes(), StandardOpenOption.APPEND);
             }
             System.out.println("Details has been added!");
         } catch (IOException ioe) {
             System.out.println(ioe);
         }
-        
+
         Path coursePath = Paths.get("C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\courses.txt");
         try {
-            Files.write(path, String.format("%d\t%d\t%d\t%s\t%s\n", "ID", "FK", "UNIT","SUBJECT","TIME","DAY/S").getBytes());
             for (ArrayList<File> a : schedule) {
-                Files.write(path, String.format("%d\t%d\t%d\t%s\t%s\n", a.get(0).file_ID, a.get(1).fk, a.get(2).unit,a.get(3).subject, a.get(4).time, a.get(5).days).getBytes(), StandardOpenOption.APPEND);
+                Files.write(coursePath, String.format("%d\t%d\t%d\t%s\t%s\t%s\n", a.get(0).file_ID, a.get(0).fk, a.get(0).unit, a.get(0).subject, a.get(0).time, a.get(0).days).getBytes(), StandardOpenOption.APPEND);
             }
             System.out.println("Details has been added!");
         } catch (IOException ioe) {
             System.out.println(ioe);
         }
     }
-    
-    public void updatePersonalInformation(int id, String firstName, String middleName, String lastName, int age){
-        for(ArrayList<PersonalInformation> a : info){
-            if(a.get(1).fk == id){
+
+    public void updatePersonalInformation(int id, String firstName, String middleName, String lastName, int age) {
+        for (ArrayList<PersonalInformation> a : info) {
+            if (a.get(1).fk == id) {
                 info.get(info.indexOf(a)).get(2).firstName = firstName;
                 info.get(info.indexOf(a)).get(3).middleName = middleName;
                 info.get(info.indexOf(a)).get(4).lastName = lastName;
@@ -295,10 +290,10 @@ public class CreateFile {
         }
         System.out.println("Updated Successfully!");
     }
-    
-    public void updateCourse(int id, int unit, String subject, String time, String days){
-        for(ArrayList<File> a : schedule){
-            if(a.get(1).fk == id){
+
+    public void updateCourse(int id, int unit, String subject, String time, String days) {
+        for (ArrayList<File> a : schedule) {
+            if (a.get(1).fk == id) {
                 schedule.get(schedule.indexOf(a)).get(2).unit = unit;
                 schedule.get(schedule.indexOf(a)).get(3).subject = subject;
                 schedule.get(schedule.indexOf(a)).get(4).time = time;
@@ -307,30 +302,30 @@ public class CreateFile {
         }
         System.out.println("Updated Successfully!");
     }
-    
-    public void deletePersonalInformation(int id){
-        for(ArrayList<PersonalInformation> a : info){
-            if(a.get(1).fk == id){
+
+    public void deletePersonalInformation(int id) {
+        for (ArrayList<PersonalInformation> a : info) {
+            if (a.get(1).fk == id) {
                 info.remove(a);
             }
         }
-        
+
         System.out.println("Deleted Successfully!");
     }
 
-    public void deleteCourse(int id){
-        for(ArrayList<File> a : schedule){
-            if(a.get(1).fk == id){
+    public void deleteCourse(int id) {
+        for (ArrayList<File> a : schedule) {
+            if (a.get(1).fk == id) {
                 schedule.remove(a);
             }
         }
     }
-    
-    public int idGenerator(String file){
+
+    public String idGenerator(String file) {
         /**
          * this will generator Id for every transactions
-        */
-        String filePath = "C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\"+file;
+         */
+        String filePath = "C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\" + file;
         String line = null;
         BufferedReader reader = null;
         FileReader freader = null;
@@ -354,9 +349,10 @@ public class CreateFile {
                 System.out.println(np);
             }
         }
-        
-        return id;
+
+        return String.valueOf(id);
     }
+
     private static class myException extends Exception {
 
         public myException(String invalid_user_name) {

@@ -10,9 +10,9 @@ package registration2;
  * @author bargasore_sd2023
  */
 public class Account {
-    String password = null;
-    String username = null;
-    int account_ID = 0;
+    public String password = null;
+    public String username = null;
+    public int account_ID = 0;
     
     public Account(){
         account_ID++;
@@ -40,8 +40,9 @@ public class Account {
         return account_ID;
     }
 
-    public void setAccount_ID(int account_ID) {
-        this.account_ID = account_ID;
+    public boolean setAccount_ID(String account_ID) {
+        this.account_ID = (intCheck(account_ID)?Integer.parseInt(account_ID)+1:0);
+        return intCheck(account_ID);
     }
     
     private boolean checkUsername(String username){
@@ -81,6 +82,17 @@ public class Account {
         }
 
         return pass;
+    }
+    
+    private boolean intCheck(String id) {
+        boolean ageCheck = true;
+        try {
+            Integer.valueOf(id);
+        } catch (Exception e) {
+            System.out.println(e);
+            ageCheck = false;
+        }
+        return ageCheck;
     }
     
     public String toString(){

@@ -11,12 +11,12 @@ package registration2;
  */
 public class File {
     
-    int unit = 0;
-    String subject = null;
-    String time = null;
-    String days = null;
-    int file_ID = 0;
-    int fk = 0;
+    public int unit = 0;
+    public String subject = null;
+    public String time = null;
+    public String days = null;
+    public int file_ID = 0;
+    public int fk = 0;
     
     public int getFile_ID() {
         return file_ID;
