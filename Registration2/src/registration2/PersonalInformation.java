@@ -22,7 +22,7 @@ public class PersonalInformation {
     }
 
     public boolean setFk(String fk) {
-        this.fk = (intCheck(fk)?Integer.parseInt(fk):0);
+        this.fk = (intCheck(fk)?Integer.parseInt(fk)+1:0);
         return intCheck(fk);
     }
 

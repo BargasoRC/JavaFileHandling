@@ -14,10 +14,6 @@ public class Account {
     public String username = null;
     public int account_ID = 0;
     
-    public Account(){
-        account_ID++;
-    }
-    
     public String getPassword() {
         return password;
     }

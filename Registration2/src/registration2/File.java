@@ -28,14 +28,14 @@ public class File {
 
     public boolean setFk(String fk) {
 //        this.fk = fk;
-        this.fk = (intCheck(fk)?Integer.parseInt(fk):0);
+        this.fk = (intCheck(fk)?Integer.parseInt(fk)+1:0);
         return intCheck(fk);
     }
     
     
 
     public boolean setFile_ID(String file_ID) {
-        this.file_ID = (intCheck(file_ID)?Integer.parseInt(file_ID):0);
+        this.file_ID = (intCheck(file_ID)?Integer.parseInt(file_ID)+1:0);
         return intCheck(file_ID);
     }
     

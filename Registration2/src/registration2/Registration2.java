@@ -57,6 +57,7 @@ public class Registration2 {
             System.out.println("D\tDelete");
             System.out.println("S\tSave");
             System.out.println("SE\tSearch");
+            System.out.println("[E]\tExit");
 
             System.out.print("Choice: ");
             String cruds = stringInput.nextLine();
@@ -87,7 +88,7 @@ public class Registration2 {
                     account.setAccount_ID(accountID);
                     accountFiles.add(account);
                     register.accounts.add(accountFiles);
-                    
+
                     information.setFk(accountID);
                     information.setId(informationPK);
                     while (true) {
@@ -176,22 +177,159 @@ public class Registration2 {
 
             if (cruds.toLowerCase().equals("r")) {
                 register.readFiles();
-                if(register.accounts.isEmpty() && register.info.isEmpty() && register.schedule.isEmpty()){
+                if (register.accounts.isEmpty() && register.info.isEmpty() && register.schedule.isEmpty()) {
                     System.out.println("Nothing to show!");
-                }else{
-                    
+                } else {
+                    System.out.println("\n");
+                    System.out.printf("%s%20s%20s\n", "ID", "USERNAME", "PASSWORD");
+                    for (ArrayList<Account> a : register.accounts) {
+                        System.out.printf("%d", a.get(0).getAccount_ID());
+                        System.out.printf("%20s", a.get(0).username);
+                        System.out.printf("%20s\n", a.get(0).password);
+                    }
+                    System.out.println("\n");
+                    System.out.printf("%s%10s%20s%20s%20s%20s\n", "ID", "FK", "FIRSTNAME", "MIDDLENAME", "LASTNAME", "AGE");
+                    for (ArrayList<PersonalInformation> pf : register.info) {
+                        System.out.printf("%d", pf.get(0).getId());
+                        System.out.printf("%10d", pf.get(0).fk);
+                        System.out.printf("%20s", pf.get(0).firstName);
+                        System.out.printf("%20s", pf.get(0).middleName);
+                        System.out.printf("%20s", pf.get(0).lastName);
+                        System.out.printf("%20s\n", pf.get(0).age);
+                    }
+                    System.out.println("\n");
+                    System.out.printf("%s%10s%10s%20s%20s%20s\n", "ID", "FK", "UNIT", "SUBJECT", "TIME", "DAY/S");
+                    for (ArrayList<File> f : register.schedule) {
+                        System.out.printf("%d", f.get(0).getFile_ID());
+                        System.out.printf("%10d", f.get(0).fk);
+                        System.out.printf("%10d", f.get(0).unit);
+                        System.out.printf("%20s", f.get(0).subject);
+                        System.out.printf("%20s", f.get(0).time);
+                        System.out.printf("%20s\n", f.get(0).days);
+                    }
                 }
             }
 
             if (cruds.toLowerCase().equals("u") && !register.accounts.isEmpty()) {
-                while (true) {
 
+                System.out.println("[1]\tPersonal Information");
+                System.out.println("[2]\tSchedule");
+
+                while (true) {
+                    System.out.print("choice : ");
+                    int updateChoice = intInput.nextInt();
+
+                    if (updateChoice == 1) {
+                        System.out.print("Enter ID : ");
+                        int id = intInput.nextInt();
+
+                        for (ArrayList<PersonalInformation> pf : register.info) {
+                            if (pf.get(0).id == id) {
+                                while (true) {
+                                    System.out.print("First Name: ");
+                                    firstName = stringInput.nextLine();
+                                    if (information.setFirstName(firstName)) {
+                                        register.info.get(register.info.indexOf(pf)).get(0).firstName = firstName;
+                                        break;
+                                    }
+                                }
+                                while (true) {
+                                    System.out.print("Middle Name: ");
+                                    middleName = stringInput.nextLine();
+                                    if (information.setMiddleName(middleName)) {
+                                        register.info.get(register.info.indexOf(pf)).get(0).middleName = middleName;
+                                        break;
+                                    }
+                                }
+
+                                while (true) {
+                                    System.out.print("Last Name: ");
+                                    lastName = stringInput.nextLine();
+                                    if (information.setLastName(lastName)) {
+                                        register.info.get(register.info.indexOf(pf)).get(0).lastName = lastName;
+                                        break;
+                                    }
+                                }
+
+                                while (true) {
+                                    System.out.print("Age : ");
+                                    age = stringInput.nextLine();
+                                    if (information.setAge(age)) {
+                                        register.info.get(register.info.indexOf(pf)).get(0).age = Integer.parseInt(age);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    } else if (updateChoice == 2) {
+                        System.out.print("Enter ID : ");
+                        int id = intInput.nextInt();
+
+                        for (ArrayList<File> f : register.schedule) {
+                            if (f.get(0).file_ID == id) {
+
+                                System.out.print("Subject : ");
+                                subject = stringInput.nextLine();
+                                register.schedule.get(register.schedule.indexOf(f)).get(0).subject = subject;
+
+                                while (true) {
+                                    System.out.print("Unit : ");
+                                    unit = stringInput.nextLine();
+                                    if (course.setUnit(unit)) {
+                                        register.schedule.get(register.schedule.indexOf(f)).get(0).unit = Integer.parseInt(unit);
+                                        break;
+                                    }
+                                }
+
+                                System.out.print("Time : ");
+                                time = stringInput.nextLine();
+                                register.schedule.get(register.schedule.indexOf(f)).get(0).time = time;
+
+                                System.out.print("Day/s : ");
+                                days = stringInput.nextLine();
+                                register.schedule.get(register.schedule.indexOf(f)).get(0).days = days;
+                            }
+                        }
+                        break;
+                    } else {
+                        System.out.println("Invalid Input!");
+                    }
                 }
             }
 
-            if (cruds.toLowerCase().equals("d") && !register.accounts.isEmpty()) {
+            if (cruds.toLowerCase().equals("d")) {
+                System.out.println("[1]\tPersonal Information");
+                System.out.println("[2]\tSchedule");
+                int deleteChoice;
                 while (true) {
-
+                    System.out.print("choice : ");
+                    deleteChoice = intInput.nextInt();
+                    if (deleteChoice == 1 || deleteChoice == 2) {
+                        break;
+                    } else {
+                        System.out.println("Invalid Input!");
+                    }
+                }
+                if (!register.info.isEmpty() && deleteChoice == 1) {
+                    System.out.print("Enter ID : ");
+                    int id = intInput.nextInt();
+                    for (ArrayList<PersonalInformation> pf : register.info) {
+                        if (pf.get(0).id == id) {
+                            register.info.get(register.info.indexOf(pf)).remove(register.info.indexOf(pf));
+                        }
+                    }
+                } else if (!register.schedule.isEmpty() && deleteChoice == 2) {
+                    System.out.print("Enter ID : ");
+                    int id = intInput.nextInt();
+                    for (ArrayList<File> f : register.schedule) {
+                        if (f.get(0).file_ID == id) {
+                            register.schedule.get(register.schedule.indexOf(f)).remove(register.schedule.indexOf(f));
+                            break;
+                        }
+                    }
+                } else {
+                    System.out.println("Empty Files!");
                 }
             }
 

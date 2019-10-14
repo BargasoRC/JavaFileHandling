@@ -250,6 +250,7 @@ public class CreateFile {
         //remove the standardOpenOption.APPEND to write the details from the arrayList
         Path path = Paths.get("C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\accounts.txt");
         try {
+            Files.write(path,("").getBytes());
             for (ArrayList<Account> a : accounts) {
                 Files.write(path, String.format("%d\t%s\t%s\n", a.get(0).getAccount_ID(), a.get(0).getUsername(), a.get(0).getPassword()).getBytes(), StandardOpenOption.APPEND);
             }
@@ -260,6 +261,7 @@ public class CreateFile {
 
         Path infoPath = Paths.get("C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\personalInformation.txt");
         try {
+            Files.write(infoPath,("").getBytes());
             for (ArrayList<PersonalInformation> a : info) {
                 Files.write(infoPath, String.format("%d\t%d\t%s\t%s\t%s\t%d\n", a.get(0).getId(), a.get(0).getFk(), a.get(0).getFirstName(), a.get(0).getMiddleName(), a.get(0).getLastName(), a.get(0).age).getBytes(), StandardOpenOption.APPEND);
             }
@@ -270,6 +272,7 @@ public class CreateFile {
 
         Path coursePath = Paths.get("C:\\Users\\2ndyrGroupC\\Desktop\\Bargaso_files\\JavaFileHandling\\Registration2\\courses.txt");
         try {
+            Files.write(coursePath,("").getBytes());
             for (ArrayList<File> a : schedule) {
                 Files.write(coursePath, String.format("%d\t%d\t%d\t%s\t%s\t%s\n", a.get(0).file_ID, a.get(0).fk, a.get(0).unit, a.get(0).subject, a.get(0).time, a.get(0).days).getBytes(), StandardOpenOption.APPEND);
             }
