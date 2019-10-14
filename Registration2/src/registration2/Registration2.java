@@ -314,20 +314,12 @@ public class Registration2 {
                 if (!register.info.isEmpty() && deleteChoice == 1) {
                     System.out.print("Enter ID : ");
                     int id = intInput.nextInt();
-                    for (ArrayList<PersonalInformation> pf : register.info) {
-                        if (pf.get(0).id == id) {
-                            register.info.get(register.info.indexOf(pf)).remove(register.info.indexOf(pf));
-                        }
-                    }
+                    register.deletePersonalInformation(id);
+                    
                 } else if (!register.schedule.isEmpty() && deleteChoice == 2) {
                     System.out.print("Enter ID : ");
                     int id = intInput.nextInt();
-                    for (ArrayList<File> f : register.schedule) {
-                        if (f.get(0).file_ID == id) {
-                            register.schedule.get(register.schedule.indexOf(f)).remove(register.schedule.indexOf(f));
-                            break;
-                        }
-                    }
+                    register.deleteCourse(id);
                 } else {
                     System.out.println("Empty Files!");
                 }
@@ -335,6 +327,39 @@ public class Registration2 {
 
             if (cruds.toLowerCase().equals("s")) {
                 register.save();
+            }
+            if(cruds.toLowerCase().equals("se")){
+                System.out.println("[1]\tPersonal Information");
+                System.out.println("[2]\tSchedule");
+
+                while (true) {
+                    System.out.print("choice : ");
+                    int updateChoice = intInput.nextInt();
+
+                    if (updateChoice == 1) {
+                        System.out.print("Enter ID : ");
+                        int id = intInput.nextInt();
+                        for(ArrayList<PersonalInformation> pf : register.info){
+                            if(pf.get(0).id == id){
+                                System.out.println(pf.toString());
+                                break;
+                            }
+                        }
+                        break;
+                    } else if (updateChoice == 2) {
+                        System.out.print("Enter ID : ");
+                        int id = intInput.nextInt();
+                        for(ArrayList<File> f : register.schedule){
+                            if(f.get(0).file_ID == id){
+                                System.out.println(f.toString());
+                                break;
+                            }
+                        }
+                        break;
+                    } else {
+                        System.out.println("Invalid Input!");
+                    }
+                }
             }
 
             if (cruds.toLowerCase().equals("e")) {

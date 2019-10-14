@@ -85,6 +85,6 @@ public class File {
     }
     
     public String toString(){
-        return String.format("%10d%10d%30d%30s%30s%30s",this.file_ID, this.fk, this.unit, this.subject, this.time,this.days);
+        return String.format("ID: %d\tFK: %d\tUNIT: %d\tSUBJECT: %s\tTIME: %s\tDAY/S: %s",this.file_ID, this.fk, this.unit, this.subject, this.time,this.days);
     }
 }
