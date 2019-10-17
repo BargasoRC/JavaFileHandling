@@ -171,6 +171,9 @@ public class Registration2 {
                     accountFiles.add(account);
                     accountID = String.valueOf(Integer.parseInt(accountID) + 1);
                     register.accounts.add(accountFiles);
+                    coursePK = String.valueOf(Integer.parseInt(coursePK)+1);
+                    informationPK = String.valueOf(Integer.parseInt(informationPK) + 1);
+                    
                     continue;
                 }
             }
@@ -210,7 +213,7 @@ public class Registration2 {
                 }
             }
 
-            if (cruds.toLowerCase().equals("u") && !register.accounts.isEmpty()) {
+            if (cruds.toLowerCase().equals("u")) {
 
                 System.out.println("[1]\tPersonal Information");
                 System.out.println("[2]\tSchedule");
@@ -222,6 +225,21 @@ public class Registration2 {
                     if (updateChoice == 1) {
                         System.out.print("Enter ID : ");
                         int id = intInput.nextInt();
+                        
+                        //loop the update
+                        boolean check = false;
+                        for(ArrayList<PersonalInformation> pf : register.info){
+                            if(pf.get(0).id == id){
+                                check = true;
+                            }
+                        }
+                        
+                        if(!check){
+                            information.id = id;
+                            information.fk = id;
+                            personalInformationFiles.add(information);
+                            register.info.add(personalInformationFiles);
+                        }
 
                         for (ArrayList<PersonalInformation> pf : register.info) {
                             if (pf.get(0).id == id) {
@@ -265,6 +283,21 @@ public class Registration2 {
                     } else if (updateChoice == 2) {
                         System.out.print("Enter ID : ");
                         int id = intInput.nextInt();
+                        
+                        //loop the update
+                        boolean check = false;
+                        for(ArrayList<File> f : register.schedule){
+                            if(f.get(0).file_ID == id){
+                                check = true;
+                            }
+                        }
+                        
+                        if(!check){
+                            course.file_ID = id;
+                            course.fk = id;
+                            courseFile.add(course);
+                            register.schedule.add(courseFile);
+                        }
 
                         for (ArrayList<File> f : register.schedule) {
                             if (f.get(0).file_ID == id) {
